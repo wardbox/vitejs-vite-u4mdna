@@ -18,7 +18,7 @@ export default function CookieConsentBanner() {
     return acc;
   }, {} as Record<string, { consent: boolean }>))
   const [open, setOpen] = useState(false)
-  const [position, setPosition] = useState(Math.floor(Math.random() * (35 - 20 + 1) + 20))
+  const [position, setPosition] = useState(13)
   const [waitTimes, setWaitTimes] = useState<number[]>([])
   const [averageWaitTime, setAverageWaitTime] = useState(10000)
   const [processingMessage, setProcessingMessage] = useState(processingMessages[0])
@@ -57,14 +57,16 @@ export default function CookieConsentBanner() {
   }, [])
 
   useEffect(() => {
-    if (!open && stage === "approved" && position > 0) {
+    if (!open && stage === "approved" && position > 1) {
       setPosition(Math.floor(Math.random() * (35 - 20 + 1) + 20))
+    } else if (!open && stage === "approved" && position ===1) {
+      setStage("done")
     }
   }, [open, stage, position]);
 
   useEffect(() => {
     if (stage === "approved" && position > 0) {
-      const randomInterval = Math.floor(Math.random() * (18000 - 5000 + 1)) + 5000;
+      const randomInterval = Math.floor(Math.random() * (4000 - 2000 + 1)) + 2000;
 
       setWaitTimes(prev => [...prev, randomInterval]);
 
@@ -152,9 +154,9 @@ export default function CookieConsentBanner() {
                   <h2 className="text-2xl font-bold mb-2">Privacy Management License In Review</h2>
                   <p>Your application is currently under review. We will notify you via this page when your license is approved. Your position in line is <span className="font-bold">{position}</span>. Do not close this window or your position will be reset.</p>
                 </div>
-                <p className="text-center text-sm text-gray-500">Average wait time: {Math.floor(averageWaitTime / 1000)} seconds</p>
+                <p className="text-center text-sm text-gray-500">Average wait time: {Math.floor(averageWaitTime / 1000) * 13} seconds</p>
               </DialogContent>
-            ) : stage === "approved" && position === 1 && allDone ? (
+            ) : stage === "approved" && position === 1 ? (
               <DialogContent>
                 <div className="text-center flex flex-col items-center gap-4">
                   <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
