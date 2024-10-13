@@ -26,7 +26,7 @@ export function CookieForm({ onSubmit }: { onSubmit: (data: z.infer<typeof cooki
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 p-8">
         {cookieData.map((cookie) => (
           <FormField
             key={cookie.id}
