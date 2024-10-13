@@ -1,32 +1,11 @@
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { Textarea } from "@/components/ui/textarea"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@/components/ui/form"
+import { Form, FormField, FormItem, FormControl } from "@/components/ui/form"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
-import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogTrigger, AlertDialogAction, AlertDialogFooter } from "@/components/ui/alert-dialog"
-
-const cookieData = [
-  {
-    id: "biometric",
-    name: "Biometric Tracking Cookie",
-    description: "Monitors your heart rate and facial expressions via webcam to gauge emotional reactions to content.",
-    storage: 100,
-    partners: ["EmotiTrack Corp", "FacialData Inc."]
-  },
-  {
-    id: "family",
-    name: "Family Mapping Cookie",
-    description: "Builds a profile of your family members, including names and ages, based on shared devices and IP addresses.",
-    storage: 100,
-    partners: ["FamilyNet Analytics", "HouseholdData Co."]
-  },
-  // ... Add more cookies here
-]
-
+import { cookieData } from "./constants"
 export const cookieFormSchema = z.object({
   cookies: z.record(z.string(), z.object({
     consent: z.boolean(),
@@ -39,9 +18,9 @@ export function CookieForm({ onSubmit }: { onSubmit: (data: z.infer<typeof cooki
     resolver: zodResolver(cookieFormSchema),
     defaultValues: {
       cookies: cookieData.reduce((acc, cookie) => {
-        acc[cookie.id] = { consent: false, storageLength: cookie.storage };
+        acc[cookie.id] = { consent: false };
         return acc;
-      }, {} as Record<string, { consent: boolean; storageLength: number }>),
+      }, {} as Record<string, { consent: boolean }>),
     },
   })
 
@@ -79,7 +58,7 @@ export function CookieForm({ onSubmit }: { onSubmit: (data: z.infer<typeof cooki
               </FormItem>
             )} />
         ))}
-        <Button type="submit" className="mx-auto">Submit Application</Button>
+        <Button type="submit" className="mx-auto">Submit Cookie Consent</Button>
       </form>
     </Form >
   )
