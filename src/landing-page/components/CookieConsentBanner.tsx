@@ -101,7 +101,7 @@ export default function CookieConsentBanner() {
             </DialogTrigger>
             {processing ? (
               <DialogContent>
-                <div className="flex flex-col items-center justify-center space-y-4">
+                <div className="flex flex-col items-center justify-center space-y-4 p-8">
                   <Loader2 className="h-8 w-8 animate-spin" />
                   <p className="text-lg italic text-center text-balance text-muted-foreground">{processingMessage}</p>
                 </div>
